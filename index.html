@@ -661,42 +661,86 @@
             margin-top: 3rem;
         }
 
-        .solution-card {
-            background: white;
-            padding: 2.5rem;
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
             border-radius: 12px;
             box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-light);
-            transition: all 0.3s ease;
-        }
-
-        .solution-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-xl);
-        }
-
-        .solution-icon {
-            width: 60px;
-            height: 60px;
-            background: #eff6ff;
-            border-radius: 12px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            margin-bottom: 1.5rem;
-            font-size: 1.5rem;
+            align-items: center;
+            padding: 2rem;
         }
 
-        .solution-card h3 {
+        .flip-card-front {
+            background: white;
+            border: 1px solid var(--border-light);
+        }
+
+        .flip-card-front .solution-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .flip-card-front .program-image {
+            height: 150px;
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .flip-card-front h3 {
             font-size: 1.375rem;
             font-weight: 600;
             margin-bottom: 1rem;
             color: var(--text-primary);
         }
 
-        .solution-card p {
+        .flip-card-front p {
             color: var(--text-secondary);
             line-height: 1.7;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-back h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .flip-card-back p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
         }
 
         /* Program Section */
@@ -737,62 +781,72 @@
 
         .program-card {
             background: white;
-            padding: 2.5rem;
             border-radius: 12px;
-            border: 1px solid var(--border-light);
-            box-shadow: var(--shadow-sm);
-            transition: all 0.3s ease;
-            position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
         }
 
-        .program-card::before {
+        .program-card::after {
+            content: '詳細を見る';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .program-card:hover::after {
+            opacity: 1;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .program-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover .program-image {
+            transform: scale(1.1);
+        }
+
+        .program-content {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .program-content::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 4px;
-            background: var(--primary-color);
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
             transform: scaleX(0);
             transition: transform 0.3s ease;
         }
 
-        .program-card:hover::before {
+        .program-card:hover .program-content::before {
             transform: scaleX(1);
-        }
-
-        .program-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-2px);
-        }
-
-        .program-image {
-            width: 100%;
-            height: 200px;
-            border-radius: 8px;
-            margin-bottom: 1.5rem;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .program-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent, rgba(0,0,0,0.1), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.6s ease;
-        }
-
-        .program-card:hover .program-image::before {
-            transform: translateX(100%);
         }
 
         .program-card.video .program-image {
@@ -865,10 +919,33 @@
             position: relative;
             transition: all 0.3s ease;
             cursor: pointer;
+            overflow: hidden;
+        }
+
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .success-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .success-card > * {
+            position: relative;
+            z-index: 2;
         }
 
         .success-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) rotate(1deg);
             box-shadow: var(--shadow-xl);
         }
 
@@ -884,6 +961,11 @@
             color: white;
             margin-bottom: 1rem;
             position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .success-card:hover .success-avatar {
+            transform: scale(1.1) rotate(5deg);
         }
 
         .success-avatar::after {
@@ -904,34 +986,10 @@
             animation: pulse 2s infinite;
         }
 
-        .success-quote {
-            font-size: 1.125rem;
-            line-height: 1.7;
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-style: italic;
-            position: relative;
-        }
-
-        .success-quote::before {
-            content: '"';
-            font-size: 3rem;
-            color: var(--primary-color);
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            opacity: 0.3;
-        }
-
-        .success-author {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .success-role {
-            font-size: 0.875rem;
-            color: var(--text-light);
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         /* Pricing Section */
@@ -1029,6 +1087,36 @@
             border: 1px solid var(--border-light);
             box-shadow: var(--shadow-sm);
             position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .process-step:hover::before {
+            opacity: 0.05;
+        }
+
+        .process-step > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
         }
 
         .process-number {
@@ -1043,19 +1131,11 @@
             font-size: 1.125rem;
             font-weight: 700;
             margin: 0 auto 1.5rem;
+            transition: transform 0.3s ease;
         }
 
-        .process-step h3 {
-            font-size: 1.125rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .process-step p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
+        .process-step:hover .process-number {
+            transform: scale(1.2) rotate(360deg);
         }
 
         /* FAQ Section */
@@ -1282,6 +1362,14 @@
                 flex-direction: column;
                 align-items: center;
             }
+
+            .flip-card {
+                height: 250px;
+            }
+            
+            .flip-card-front, .flip-card-back {
+                padding: 1.5rem;
+            }
         }
 
         /* Scroll Behavior */
@@ -1329,6 +1417,304 @@
                 transform: translateY(-100px) translateX(100px) rotate(360deg);
                 opacity: 0;
             }
+        }
+
+        /* 3D Flip Card Effects */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            cursor: pointer;
+        }
+
+        .flip-card:hover .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front, .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .flip-card-front {
+            background: white;
+            border: 1px solid var(--border-light);
+        }
+
+        .flip-card-front .solution-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .flip-card-front h3 {
+            font-size: 1.375rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .flip-card-front p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .flip-card-back {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-back h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .flip-card-back p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+
+        .solution-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .solution-card:hover .solution-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* Program Cards with Flip Effect */
+        .program-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .program-card::after {
+            content: '詳細を見る';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(37, 99, 235, 0.9);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .program-card:hover::after {
+            opacity: 1;
+        }
+
+        .program-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .program-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover .program-image {
+            transform: scale(1.1);
+        }
+
+        .program-content {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .program-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .program-card:hover .program-content::before {
+            transform: scaleX(1);
+        }
+
+        /* Success Cards with Flip Effect */
+        .success-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .success-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .success-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .success-card > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .success-card:hover {
+            transform: translateY(-5px) rotate(1deg);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .success-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .success-card:hover .success-avatar {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .success-avatar::after {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .success-card:hover .success-avatar::after {
+            opacity: 1;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Process Steps with Flip Effect */
+        .process-step {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .process-step:hover::before {
+            opacity: 0.05;
+        }
+
+        .process-step > * {
+            position: relative;
+            z-index: 2;
+        }
+
+        .process-step:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .process-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin: 0 auto 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .process-step:hover .process-number {
+            transform: scale(1.2) rotate(360deg);
         }
     </style>
 </head>
@@ -1447,40 +1833,88 @@
             <p class="section-subtitle">従来の部活動では得られない、実践的なビジネススキルと人生経験を提供します。</p>
             
             <div class="solution-grid">
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">💰</div>
-                    <h3>実際にお金を稼ぐ体験</h3>
-                    <p>絵に描いた餅ではなく、本当にお金を稼ぐ実践的な学習。成果報酬制で学校負担は実質無料です。</p>
+                <div class="flip-card fade-in">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="solution-icon">💰</div>
+                            <h3>実際にお金を稼ぐ体験</h3>
+                            <p>絵に描いた餅ではなく、本当にお金を稼ぐ実践的な学習。</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>実践的収益体験</h3>
+                            <p>成果報酬制で学校負担は実質無料。生徒が実際に企業から対価をいただくことで、本当のビジネス感覚を身につけます。</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">🤝</div>
-                    <h3>地域企業との真の連携</h3>
-                    <p>地元企業の課題を高校生が解決。相互利益を生む立体的なコミュニティを構築します。</p>
+                <div class="flip-card fade-in">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="solution-icon">🤝</div>
+                            <h3>地域企業との真の連携</h3>
+                            <p>地元企業の課題を高校生が解決。</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>相互利益の創出</h3>
+                            <p>相互利益を生む立体的なコミュニティを構築。企業にとっては新鮮な視点、生徒にとっては実践的な学びの場を提供します。</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">📈</div>
-                    <h3>視座を上げる教育</h3>
-                    <p>疲れた大人ではなく、挑戦する大人との出会いで、社会への期待感を醸成します。</p>
+                <div class="flip-card fade-in">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="solution-icon">📈</div>
+                            <h3>視座を上げる教育</h3>
+                            <p>挑戦する大人との出会いで、社会への期待感を醸成。</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>成功体験の共有</h3>
+                            <p>疲れた大人ではなく、挑戦する大人との出会いで、社会への期待感を醸成。経営者メンターから直接学ぶことで視座が大きく向上します。</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">🎯</div>
-                    <h3>失敗を学習に変える</h3>
-                    <p>18歳での失敗は取り返せる。挑戦したノウハウが人生を豊かにすることを学びます。</p>
+                <div class="flip-card fade-in">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="solution-icon">🎯</div>
+                            <h3>失敗を学習に変える</h3>
+                            <p>18歳での失敗は取り返せる。</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>失敗の価値化</h3>
+                            <p>挑戦したノウハウが人生を豊かにすることを学びます。18歳での失敗は取り返せる貴重な経験として位置づけ、成長の糧にします。</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">🌱</div>
-                    <h3>複数収入源の構築</h3>
-                    <p>奨学金返済問題を解決し、複数の収入源を持った状態で社会に出る力を身につけます。</p>
+                <div class="flip-card fade-in">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="solution-icon">🌱</div>
+                            <h3>複数収入源の構築</h3>
+                            <p>奨学金返済問題を解決。</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>経済的自立支援</h3>
+                            <p>複数の収入源を持った状態で社会に出る力を身につけます。奨学金返済問題を解決し、経済的な不安を軽減します。</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="solution-card fade-in">
-                    <div class="solution-icon">🏆</div>
-                    <h3>実践的資格の取得</h3>
-                    <p>就職・進学に活用できる独自の実践的資格を発行し、将来の可能性を広げます。</p>
+                <div class="flip-card fade-in">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="solution-icon">🏆</div>
+                            <h3>実践的資格の取得</h3>
+                            <p>就職・進学に活用できる独自の実践的資格。</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>将来への投資</h3>
+                            <p>就職・進学に活用できる独自の実践的資格を発行し、将来の可能性を広げます。実績に基づく資格は就職活動でも大きな武器になります。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1493,20 +1927,44 @@
             <p class="section-subtitle">部活動として取り組む3つの実践的プログラムで、生徒の成長を支援します。</p>
             
             <div class="program-grid">
-                <div class="program-card fade-in video">
-                    <div class="program-image"></div>
-                    <h3>動画制作事業</h3>
-                    <p>地域企業の採用動画やPR動画を制作。60-90秒のショート動画で人の感情を動かす技術を習得し、実際に企業から対価をいただきます。高校生のクリエイティブ能力は企業にとって貴重な資産です。</p>
+                <div class="flip-card fade-in video">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="program-image"></div>
+                            <h3>動画制作事業</h3>
+                            <p>地域企業の採用動画やPR動画を制作。60-90秒のショート動画で人の感情を動かす技術を習得。</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>クリエイティブ能力の活用</h3>
+                            <p>実際に企業から対価をいただきます。高校生のクリエイティブ能力は企業にとって貴重な資産です。感情を動かす動画制作技術を実践的に学びます。</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="program-card fade-in crowdfunding">
-                    <div class="program-image"></div>
-                    <h3>クラウドファンディング支援</h3>
-                    <p>地域企業のプロジェクトをクラファンで支援。資金調達のノウハウと地域への貢献を同時に学びます。成功すれば手数料収入も得られ、地域経済の活性化にも貢献できます。</p>
+                <div class="flip-card fade-in crowdfunding">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="program-image"></div>
+                            <h3>クラウドファンディング支援</h3>
+                            <p>地域企業のプロジェクトをクラファンで支援。資金調達のノウハウと地域への貢献を同時に学びます。</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>地域経済の活性化</h3>
+                            <p>成功すれば手数料収入も得られ、地域経済の活性化にも貢献できます。資金調達の実践的スキルを身につけ、地域社会への貢献を体験します。</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="program-card fade-in pr">
-                    <div class="program-image"></div>
-                    <h3>PR（パブリックリレーションズ）</h3>
-                    <p>地元企業をメディアに推薦。高校生だからこそ採用される確率が高い、効果的なPR戦略を実践します。一度の成功で企業に数億円の価値をもたらすことも可能です。</p>
+                <div class="flip-card fade-in pr">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <div class="program-image"></div>
+                            <h3>PR（パブリックリレーションズ）</h3>
+                            <p>地元企業をメディアに推薦。高校生だからこそ採用される確率が高い、効果的なPR戦略を実践。</p>
+                        </div>
+                        <div class="flip-card-back">
+                            <h3>メディア戦略の実践</h3>
+                            <p>一度の成功で企業に数億円の価値をもたらすことも可能です。高校生の視点を活かしたPR戦略で、企業のブランディングを支援します。</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
