@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メンター登録 | 一般社団法人高校企業部</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #e5e5e5;
+            --neutral-300: #d4d4d4;
+            --neutral-600: #525252;
+            --neutral-700: #404040;
+            --neutral-800: #262626;
+            --neutral-900: #171717;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --surface-white: #ffffff;
+            --surface-light: #f8fafc;
+            --border-light: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--surface-white);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('images/mentor.jpg');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%),
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Benefits Section */
+        .benefits-section {
+            padding: 80px 0;
+            background: white;
+            position: relative;
+        }
+
+        .benefits-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/business-team.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.02;
+            z-index: 0;
+        }
+
+        .benefits-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 4rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .benefit-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .benefit-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .benefit-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Form Section */
+        .form-section {
+            padding: 80px 0;
+            background: var(--surface-light);
+            position: relative;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .form-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--border-light);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .submit-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.125rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .submit-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .required {
+            color: #ef4444;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--neutral-900);
+            color: var(--neutral-300);
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--neutral-400);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--neutral-700);
+            color: var(--neutral-500);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2.25rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-card {
+                padding: 2rem;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.875rem;
+            }
+
+            .hero-text .subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .form-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">高校企業部</a>
+            <ul class="nav-menu">
+                <li><a href="about.html">高校企業部とは</a></li>
+                <li><a href="programs.html">教育プログラム</a></li>
+                <li><a href="cases.html">導入事例</a></li>
+                <li><a href="process.html">導入の流れ</a></li>
+                <li><a href="contact.html">お問い合わせ</a></li>
+            </ul>
+            <a href="contact.html" class="cta-button">個別相談</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>メンター登録</h1>
+                <p class="subtitle">高校生の未来を一緒に育てませんか？あなたの経験と知識が、次世代のリーダーを育成します</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="benefits-container">
+            <h2 class="section-title">メンターになるメリット</h2>
+            <p class="section-subtitle">高校生の成長をサポートしながら、あなた自身も成長できる機会を提供します</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌟</div>
+                    <h3 class="benefit-title">地域貢献</h3>
+                    <p class="benefit-description">地元の高校生の成長をサポートし、地域社会の発展に貢献できます。あなたの経験が地域の未来を創ります。</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">💡</div>
+                    <h3 class="benefit-title">新しい視点</h3>
+                    <p class="benefit-description">高校生の新鮮なアイデアや視点から、新しい発想やビジネスチャンスを得ることができます。</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🤝</div>
+                    <h3 class="benefit-title">ネットワーク拡大</h3>
+                    <p class="benefit-description">他のメンターや教育関係者との交流を通じて、新しいビジネスパートナーシップを構築できます。</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">📈</div>
+                    <h3 class="benefit-title">リーダーシップ向上</h3>
+                    <p class="benefit-description">指導経験を通じて、あなた自身のリーダーシップスキルやコミュニケーション能力が向上します。</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3 class="benefit-title">人材発掘</h3>
+                    <p class="benefit-description">優秀な高校生を早期に発掘し、将来のビジネスパートナーや従業員候補を見つけることができます。</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">❤️</div>
+                    <h3 class="benefit-title">やりがい</h3>
+                    <p class="benefit-description">高校生の成長を間近で見守り、彼らの成功をサポートすることで、大きなやりがいを感じることができます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Form Section -->
+    <section class="form-section">
+        <div class="form-container">
+            <h2 class="section-title">メンター登録フォーム</h2>
+            <p class="section-subtitle">以下のフォームに必要事項をご記入の上、お申し込みください</p>
+            
+            <div class="form-card">
+                <form id="mentorForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">お名前 <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">フリガナ <span class="required">*</span></label>
+                            <input type="text" class="form-input" name="furigana" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">メールアドレス <span class="required">*</span></label>
+                            <input type="email" class="form-input" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">電話番号 <span class="required">*</span></label>
+                            <input type="tel" class="form-input" name="phone" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">所属企業・団体 <span class="required">*</span></label>
+                        <input type="text" class="form-input" name="company" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">役職</label>
+                        <input type="text" class="form-input" name="position">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">専門分野 <span class="required">*</span></label>
+                        <select class="form-select" name="specialty" required>
+                            <option value="">選択してください</option>
+                            <option value="marketing">マーケティング</option>
+                            <option value="sales">営業・販売</option>
+                            <option value="finance">財務・会計</option>
+                            <option value="hr">人事・採用</option>
+                            <option value="it">IT・システム</option>
+                            <option value="operations">事業運営</option>
+                            <option value="strategy">経営戦略</option>
+                            <option value="startup">起業・スタートアップ</option>
+                            <option value="other">その他</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">経験年数 <span class="required">*</span></label>
+                        <select class="form-select" name="experience" required>
+                            <option value="">選択してください</option>
+                            <option value="1-3">1-3年</option>
+                            <option value="4-7">4-7年</option>
+                            <option value="8-15">8-15年</option>
+                            <option value="16-25">16-25年</option>
+                            <option value="26+">26年以上</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">指導可能な活動時間</label>
+                        <select class="form-select" name="availability">
+                            <option value="">選択してください</option>
+                            <option value="weekday-evening">平日夜間</option>
+                            <option value="weekend">週末</option>
+                            <option value="flexible">柔軟に対応可能</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">指導経験</label>
+                        <textarea class="form-textarea" name="teaching_experience" placeholder="これまでの指導経験やメンタリング経験があればお聞かせください"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">メンターとして期待すること</label>
+                        <textarea class="form-textarea" name="expectations" placeholder="高校企業部のメンターとしてどのような活動をしたいか、期待することなどをお聞かせください"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">その他・ご質問</label>
+                        <textarea class="form-textarea" name="questions" placeholder="その他ご質問やご要望がございましたらお聞かせください"></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-button">メンター登録を申し込む</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>部活動について</h3>
+                <ul>
+                    <li><a href="about.html">高校企業部とは</a></li>
+                    <li><a href="process.html">部活動導入の流れ</a></li>
+                    <li><a href="faq.html">よくある質問</a></li>
+                    <li><a href="organization.html">運営団体について</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>教育プログラム</h3>
+                <ul>
+                    <li><a href="programs.html">教育プログラム</a></li>
+                    <li><a href="mentor.html">メンター制度</a></li>
+                    <li><a href="pricing.html">部活動料金体系</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>導入事例・実績</h3>
+                <ul>
+                    <li><a href="cases.html">部活動導入事例</a></li>
+                    <li><a href="student-growth.html">生徒の成長事例</a></li>
+                    <li><a href="media.html">メディア掲載実績</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>学校関係者の方へ</h3>
+                <ul>
+                    <li><a href="contact.html">個別相談の申し込み</a></li>
+                    <li><a href="mentor-register.html">メンター登録</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 一般社団法人高校企業部. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Form submission
+        document.getElementById('mentorForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Form validation
+            const requiredFields = this.querySelectorAll('[required]');
+            let isValid = true;
+            
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = '#ef4444';
+                    isValid = false;
+                } else {
+                    field.style.borderColor = var(--border-light);
+                }
+            });
+            
+            if (isValid) {
+                alert('メンター登録の申し込みを受け付けました。\n後日、担当者よりご連絡いたします。');
+                this.reset();
+            } else {
+                alert('必須項目をすべて入力してください。');
+            }
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+    </script>
+</body>
+</html> 

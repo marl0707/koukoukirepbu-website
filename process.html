@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>部活動導入の流れ | 一般社団法人高校企業部</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #e5e5e5;
+            --neutral-300: #d4d4d4;
+            --neutral-600: #525252;
+            --neutral-700: #404040;
+            --neutral-800: #262626;
+            --neutral-900: #171717;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --surface-white: #ffffff;
+            --surface-light: #f8fafc;
+            --border-light: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--surface-white);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('images/hero-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+            padding: 120px 0 80px;
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(135deg, rgba(102, 126, 234, 0.8) 0%, rgba(118, 75, 162, 0.8) 100%),
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            animation: slideInUp 1s ease-out;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.25rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            animation: slideInUp 1s ease-out 0.3s both;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Process Section */
+        .process-section {
+            padding: 80px 0;
+            background: white;
+            position: relative;
+        }
+
+        .process-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/business-team.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.02;
+            z-index: 0;
+        }
+
+        .process-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Enhanced Process Steps */
+        .process-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .process-step {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 24px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.05), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .process-step:hover::before {
+            left: 100%;
+        }
+
+        .process-step:nth-child(even) {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .process-step:nth-child(even) .step-content {
+            order: 2;
+        }
+
+        .process-step:nth-child(even) .step-visual {
+            order: 1;
+        }
+
+        .process-step:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .step-number {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.3);
+        }
+
+        .step-number::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .process-step:hover .step-number::after {
+            opacity: 1;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.1); opacity: 0.1; }
+            100% { transform: scale(1); opacity: 0.3; }
+        }
+
+        .step-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            position: relative;
+        }
+
+        .step-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.125rem;
+        }
+
+        .step-details {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .step-details li {
+            padding: 0.75rem 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 2rem;
+            font-size: 1rem;
+        }
+
+        .step-details li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--secondary-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .step-visual {
+            text-align: center;
+            position: relative;
+        }
+
+        .step-image {
+            width: 100%;
+            height: 300px;
+            border-radius: 16px;
+            background-size: cover;
+            background-position: center;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .step-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(0,0,0,0.1), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .process-step:hover .step-image::before {
+            transform: translateX(100%);
+        }
+
+        .step-1 .step-image {
+            background-image: url('images/contact-bg.jpg');
+        }
+
+        .step-2 .step-image {
+            background-image: url('images/business-team.jpg');
+        }
+
+        .step-3 .step-image {
+            background-image: url('images/students-working.jpg');
+        }
+
+        .step-4 .step-image {
+            background-image: url('images/mentor.jpg');
+        }
+
+        .step-5 .step-image {
+            background-image: url('images/success-story.jpg');
+        }
+
+        .step-icon {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Timeline */
+        .timeline-section {
+            padding: 80px 0;
+            background: var(--surface-light);
+            position: relative;
+        }
+
+        .timeline-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('images/students-working.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.03;
+            z-index: 0;
+        }
+
+        .timeline-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 4rem auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--primary-color), var(--secondary-color));
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 4rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .timeline-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-item:nth-child(odd) {
+            text-align: right;
+            padding-right: 4rem;
+        }
+
+        .timeline-item:nth-child(even) {
+            text-align: left;
+            padding-left: 4rem;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 24px;
+            height: 24px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            border: 6px solid white;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            background: var(--secondary-color);
+            transform: translate(-50%, -50%) scale(1.2);
+        }
+
+        .timeline-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Fade in animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--neutral-900);
+            color: var(--neutral-300);
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--neutral-400);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--neutral-700);
+            color: var(--neutral-500);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero-text h1 {
+                font-size: 2.25rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .process-step {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 2rem;
+            }
+
+            .process-step:nth-child(even) {
+                grid-template-columns: 1fr;
+            }
+
+            .process-step:nth-child(even) .step-content {
+                order: 1;
+            }
+
+            .process-step:nth-child(even) .step-visual {
+                order: 2;
+            }
+
+            .step-image {
+                height: 200px;
+            }
+
+            .step-icon {
+                top: -10px;
+                right: -10px;
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                text-align: left;
+                padding-left: 3rem;
+                padding-right: 0;
+            }
+
+            .timeline-item:nth-child(odd) {
+                text-align: left;
+                padding-right: 0;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+
+            .step-number {
+                width: 80px;
+                height: 80px;
+                font-size: 2rem;
+            }
+
+            .step-title {
+                font-size: 1.5rem;
+            }
+
+            .step-description {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: 1.875rem;
+            }
+
+            .hero-text .subtitle {
+                font-size: 1rem;
+            }
+
+            .section-title {
+                font-size: 1.75rem;
+            }
+
+            .process-step {
+                padding: 1.5rem;
+            }
+
+            .step-image {
+                height: 150px;
+            }
+
+            .timeline-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">高校企業部</a>
+            <ul class="nav-menu">
+                <li><a href="index.html#problem">教育課題</a></li>
+                <li><a href="index.html#solution">部活動効果</a></li>
+                <li><a href="index.html#program">プログラム</a></li>
+                <li><a href="index.html#results">導入事例</a></li>
+                <li><a href="index.html#pricing">料金</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+            </ul>
+            <a href="index.html#contact" class="cta-button">個別相談に申し込む</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>部活動導入の流れ</h1>
+                <p class="subtitle">個別相談から部活動開始まで、丁寧にサポートいたします</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="process-container">
+            <h2 class="section-title">導入までの5つのステップ</h2>
+            <p class="section-subtitle">学校の特色や地域特性を活かした最適な部活動プランを設計し、スムーズな導入を実現します。</p>
+            
+            <div class="process-steps">
+                <div class="process-step fade-in step-1">
+                    <div class="step-content">
+                        <div class="step-number">1</div>
+                        <h3 class="step-title">個別相談</h3>
+                        <p class="step-description">学校の特色や地域特性をヒアリングし、最適な部活動プランを無料でご提案いたします。</p>
+                        <ul class="step-details">
+                            <li>学校の現状と課題の把握</li>
+                            <li>地域企業との連携可能性調査</li>
+                            <li>生徒の興味関心の分析</li>
+                            <li>部活動導入の具体的なメリット説明</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image"></div>
+                        <div class="step-icon">💬</div>
+                    </div>
+                </div>
+
+                <div class="process-step fade-in step-2">
+                    <div class="step-content">
+                        <div class="step-number">2</div>
+                        <h3 class="step-title">地域企業調査</h3>
+                        <p class="step-description">地元企業の課題調査と連携可能な企業のリストアップを行い、部活動との連携体制を構築します。</p>
+                        <ul class="step-details">
+                            <li>地域企業の課題・ニーズ調査</li>
+                            <li>連携可能企業の選定</li>
+                            <li>企業との事前調整</li>
+                            <li>連携体制の構築</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image"></div>
+                        <div class="step-icon">🏢</div>
+                    </div>
+                </div>
+
+                <div class="process-step fade-in step-3">
+                    <div class="step-content">
+                        <div class="step-number">3</div>
+                        <h3 class="step-title">部活動設計</h3>
+                        <p class="step-description">学校のカリキュラムに合わせた部活動の活動内容と年間計画を設計します。</p>
+                        <ul class="step-details">
+                            <li>学校カリキュラムとの整合性確認</li>
+                            <li>部活動の年間計画策定</li>
+                            <li>活動内容の詳細設計</li>
+                            <li>評価方法の設定</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image"></div>
+                        <div class="step-icon">📋</div>
+                    </div>
+                </div>
+
+                <div class="process-step fade-in step-4">
+                    <div class="step-content">
+                        <div class="step-number">4</div>
+                        <h3 class="step-title">メンター配置</h3>
+                        <p class="step-description">地域の経営者や専門家を部活動の外部メンターとして配置し、指導体制を整えます。</p>
+                        <ul class="step-details">
+                            <li>適切なメンターの選定</li>
+                            <li>メンター研修の実施</li>
+                            <li>指導体制の確立</li>
+                            <li>継続的なサポート体制構築</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image"></div>
+                        <div class="step-icon">👨‍🏫</div>
+                    </div>
+                </div>
+
+                <div class="process-step fade-in step-5">
+                    <div class="step-content">
+                        <div class="step-number">5</div>
+                        <h3 class="step-title">部活動開始</h3>
+                        <p class="step-description">高校企業部として正式に部活動をスタートし、生徒の実践的なビジネス教育を開始します。</p>
+                        <ul class="step-details">
+                            <li>部活動の正式開始</li>
+                            <li>生徒へのオリエンテーション</li>
+                            <li>企業との初回ミーティング</li>
+                            <li>継続的なモニタリングと改善</li>
+                        </ul>
+                    </div>
+                    <div class="step-visual">
+                        <div class="step-image"></div>
+                        <div class="step-icon">🚀</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section">
+        <div class="timeline-container">
+            <h2 class="section-title">導入スケジュール</h2>
+            <p class="section-subtitle">個別相談から部活動開始まで、通常2-3ヶ月で完了します。</p>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">第1週：個別相談</h3>
+                        <p class="timeline-description">学校の現状把握と導入可能性の検討を行います。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">第2-4週：地域調査</h3>
+                        <p class="timeline-description">地域企業の調査と連携体制の構築を進めます。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">第5-8週：設計・準備</h3>
+                        <p class="timeline-description">部活動の詳細設計とメンター配置を完了します。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">第9-12週：部活動開始</h3>
+                        <p class="timeline-description">高校企業部として正式に活動を開始します。</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>部活動について</h3>
+                <ul>
+                    <li><a href="about.html">高校企業部とは</a></li>
+                    <li><a href="process.html">部活動導入の流れ</a></li>
+                    <li><a href="faq.html">よくある質問</a></li>
+                    <li><a href="organization.html">運営団体について</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>教育プログラム</h3>
+                <ul>
+                    <li><a href="programs.html">教育プログラム</a></li>
+                    <li><a href="mentor.html">メンター制度</a></li>
+                    <li><a href="pricing.html">部活動料金体系</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>導入事例・実績</h3>
+                <ul>
+                    <li><a href="cases.html">部活動導入事例</a></li>
+                    <li><a href="student-growth.html">生徒の成長事例</a></li>
+                    <li><a href="media.html">メディア掲載実績</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>学校関係者の方へ</h3>
+                <ul>
+                    <li><a href="contact.html">個別相談の申し込み</a></li>
+                    <li><a href="mentor-register.html">メンター登録</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 一般社団法人高校企業部. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all fade-in elements
+        document.addEventListener('DOMContentLoaded', () => {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => observer.observe(el));
+
+            // Timeline items animation
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            timelineItems.forEach((item, index) => {
+                setTimeout(() => {
+                    item.classList.add('visible');
+                }, index * 200);
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Process step hover effects
+        document.querySelectorAll('.process-step').forEach(step => {
+            step.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+            
+            step.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Timeline dot hover effects
+        document.querySelectorAll('.timeline-dot').forEach(dot => {
+            dot.addEventListener('mouseenter', function() {
+                this.style.transform = 'translate(-50%, -50%) scale(1.3)';
+                this.style.background = 'var(--secondary-color)';
+            });
+            
+            dot.addEventListener('mouseleave', function() {
+                this.style.transform = 'translate(-50%, -50%) scale(1)';
+                this.style.background = 'var(--primary-color)';
+            });
+        });
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>メディア掲載実績 | 一般社団法人高校企業部</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --secondary-color: #10b981;
+            --accent-color: #f59e0b;
+            --neutral-50: #fafafa;
+            --neutral-100: #f5f5f5;
+            --neutral-200: #e5e5e5;
+            --neutral-300: #d4d4d4;
+            --neutral-600: #525252;
+            --neutral-700: #404040;
+            --neutral-800: #262626;
+            --neutral-900: #171717;
+            --text-primary: #1f2937;
+            --text-secondary: #6b7280;
+            --text-light: #9ca3af;
+            --surface-white: #ffffff;
+            --surface-light: #f8fafc;
+            --border-light: #e2e8f0;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans JP', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--surface-white);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 120px 0 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Content Sections */
+        .section {
+            padding: 80px 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Media Grid */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .media-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .media-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .media-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .media-type.newspaper {
+            background: #dbeafe;
+            color: var(--primary-color);
+        }
+
+        .media-type.tv {
+            background: #fef3c7;
+            color: var(--accent-color);
+        }
+
+        .media-type.magazine {
+            background: #dcfce7;
+            color: var(--secondary-color);
+        }
+
+        .media-type.online {
+            background: #f3e8ff;
+            color: #8b5cf6;
+        }
+
+        .media-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .media-date {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .media-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .media-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .media-link:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: var(--surface-light);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--neutral-900);
+            color: var(--neutral-300);
+            padding: 60px 0 30px;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .footer-section h3 {
+            color: white;
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section ul li a {
+            color: var(--neutral-400);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid var(--neutral-700);
+            color: var(--neutral-500);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .media-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">高校企業部</a>
+            <ul class="nav-menu">
+                <li><a href="index.html#problem">教育課題</a></li>
+                <li><a href="index.html#solution">部活動効果</a></li>
+                <li><a href="index.html#program">プログラム</a></li>
+                <li><a href="index.html#results">導入事例</a></li>
+                <li><a href="index.html#pricing">料金</a></li>
+                <li><a href="index.html#faq">FAQ</a></li>
+            </ul>
+            <a href="index.html#contact" class="cta-button">個別相談に申し込む</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>メディア掲載実績</h1>
+            <p>高校企業部の取り組みが様々なメディアで紹介されています</p>
+        </div>
+    </section>
+
+    <!-- Media Coverage Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">メディア掲載一覧</h2>
+            <p class="section-subtitle">新聞、テレビ、雑誌、オンラインメディアで取り上げていただいた記事をご紹介します</p>
+            
+            <div class="media-grid">
+                <div class="media-card">
+                    <span class="media-type newspaper">新聞</span>
+                    <h3 class="media-title">読売新聞</h3>
+                    <div class="media-date">2024年3月15日</div>
+                    <p class="media-description">「高校生が部活動で起業体験 地域企業と連携し実践的なビジネス教育を推進」として、高校企業部の取り組みが紹介されました。</p>
+                    <a href="#" class="media-link">記事を読む →</a>
+                </div>
+                
+                <div class="media-card">
+                    <span class="media-type tv">テレビ</span>
+                    <h3 class="media-title">NHKニュース</h3>
+                    <div class="media-date">2024年2月28日</div>
+                    <p class="media-description">「新しい教育の形 高校生が部活動で実際にお金を稼ぐ体験」として、特集番組で取り上げられました。</p>
+                    <a href="#" class="media-link">動画を見る →</a>
+                </div>
+                
+                <div class="media-card">
+                    <span class="media-type magazine">雑誌</span>
+                    <h3 class="media-title">教育新聞</h3>
+                    <div class="media-date">2024年1月20日</div>
+                    <p class="media-description">「実践的なビジネス教育の新潮流 高校企業部の可能性」として、教育関係者向けの専門誌で紹介されました。</p>
+                    <a href="#" class="media-link">記事を読む →</a>
+                </div>
+                
+                <div class="media-card">
+                    <span class="media-type online">オンライン</span>
+                    <h3 class="media-title">TechCrunch Japan</h3>
+                    <div class="media-date">2024年1月10日</div>
+                    <p class="media-description">「EdTechの新潮流 高校生の起業家精神を育む革新的な教育プログラム」として、テックメディアで取り上げられました。</p>
+                    <a href="#" class="media-link">記事を読む →</a>
+                </div>
+                
+                <div class="media-card">
+                    <span class="media-type newspaper">新聞</span>
+                    <h3 class="media-title">朝日新聞</h3>
+                    <div class="media-date">2023年12月5日</div>
+                    <p class="media-description">「地域活性化の新手法 高校生と企業をつなぐ部活動」として、地域版で特集されました。</p>
+                    <a href="#" class="media-link">記事を読む →</a>
+                </div>
+                
+                <div class="media-card">
+                    <span class="media-type magazine">雑誌</span>
+                    <h3 class="media-title">週刊ダイヤモンド</h3>
+                    <div class="media-date">2023年11月15日</div>
+                    <p class="media-description">「次世代リーダー育成の最前線 高校生起業家教育の実践例」として、ビジネス誌で紹介されました。</p>
+                    <a href="#" class="media-link">記事を読む →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section stats-section">
+        <div class="container">
+            <h2 class="section-title">メディア掲載統計</h2>
+            <p class="section-subtitle">2023年からのメディア掲載実績</p>
+            
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">15</div>
+                    <div class="stat-label">掲載媒体数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">25</div>
+                    <div class="stat-label">掲載記事数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500万+</div>
+                    <div class="stat-label">総閲覧数</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">メディア種別</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>部活動について</h3>
+                <ul>
+                    <li><a href="about.html">高校企業部とは</a></li>
+                    <li><a href="process.html">部活動導入の流れ</a></li>
+                    <li><a href="faq.html">よくある質問</a></li>
+                    <li><a href="organization.html">運営団体について</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>教育プログラム</h3>
+                <ul>
+                    <li><a href="programs.html">教育プログラム</a></li>
+                    <li><a href="mentor.html">メンター制度</a></li>
+                    <li><a href="pricing.html">部活動料金体系</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>導入事例・実績</h3>
+                <ul>
+                    <li><a href="cases.html">部活動導入事例</a></li>
+                    <li><a href="student-growth.html">生徒の成長事例</a></li>
+                    <li><a href="media.html">メディア掲載実績</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>学校関係者の方へ</h3>
+                <ul>
+                    <li><a href="contact.html">個別相談の申し込み</a></li>
+                    <li><a href="mentor-register.html">メンター登録</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 一般社団法人高校企業部. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Header scroll effect
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(255, 255, 255, 0.98)';
+                header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.background = 'rgba(255, 255, 255, 0.95)';
+                header.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html> 
