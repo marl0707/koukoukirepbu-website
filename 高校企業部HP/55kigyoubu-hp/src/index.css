@@ -1,0 +1,15 @@
+/* @tailwind directives removed for CDN fallback */
+
+/* @layer base {
+  body {
+    @apply font-sans text-base-dark bg-base antialiased;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold text-base-dark;
+  }
+} */
+
+/* カタリバ風ローディングのアニメーション定義 */
+.clip-diagonal {
+  clip-path: polygon(0 0, 100% 0, 100% 85%, 0% 100%);
+}
